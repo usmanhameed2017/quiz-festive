@@ -1,0 +1,13 @@
+.quiz-container{
+    background-color: #f0f8ff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+}
+
+.quiz-options{
+    list-style: none;
+}
+
+.quiz-options:hover{
+    cursor: pointer;
+}
