@@ -1,26 +1,35 @@
 import React from 'react';
 
-function Result({ score, questions }) 
+function Result({ score, questions, handleResetQuiz }) 
 {
     return (
-        <div>
+        <div className='result-container'>
             <div className='row mt-2'>
-                <div className="col-md-12">
-                    <h2 className='text-center'> Your score is: { score } </h2>
+                {/* Total Score */}
+                <div className="col-md-4 mx-auto">
+                    <h1 className='text-start fw-bold'> YOUR SCORE IS: { score } </h1>
                 </div>
             </div>
-            <div className="row">
-                <div className="col-md-6 offset-md-5">
-                    <h2> Correct Answers: </h2>
-                    <ul>
-                        {
-                            questions.map((element, index) => {
-                                return(
-                                    <li key={index}> {element.correct_answer} </li>
-                                );
-                            })
-                        }
-                    </ul>
+            <div className="row mt-2">
+                {/* Correct Answers */}
+                <div className="col-md-4 mx-auto">
+                    <h3 className='text-start'> Correct Answers: </h3>
+                    {
+                        questions.map((element, index) => {
+                            return(
+                                <div className=''>
+                                    <h6 className='text-start' key={index}> {`${index + 1})`} {element.correct_answer} </h6>
+                                </div>
+                            );
+                        })
+                    }
+                </div>
+            </div>
+            <div className="row mt-2">
+                {/* Reset Quiz */}
+                <div className="col-md-4 col-sm-12 col-xs-12 mx-auto">
+                    <button type="button" className='btn btn-outline-danger w-50'
+                    onClick={ () => handleResetQuiz() }> Reset </button>
                 </div>
             </div>
         </div>

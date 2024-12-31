@@ -1,13 +1,40 @@
-.quiz-container{
+.quiz-container {
     background-color: #f0f8ff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 20px;
+    border-radius: 20px; 
 }
 
-.quiz-options{
+.form-control {
+    border: 2px gray solid;
+    border-radius: 15px;
+}
+
+.btn{
+    border-radius: 15px;
+    border-width: 2px;
+}
+
+ul li {
     list-style: none;
 }
 
-.quiz-options:hover{
+input:hover {
     cursor: pointer;
+}
+
+.correct-answer{
+    background-color: rgb(29, 133, 29);
+    border-color: green;
+}
+
+.incorrect-answer{
+    background-color: rgb(196, 14, 14);
+}
+
+.result-container{
+    background-color: #f0f8ff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;   
+    border-radius: 20px; 
 }

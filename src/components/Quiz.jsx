@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { questions } from './Questions.js';
 import './Quiz.css';
 import Result from './Result.jsx';
 
 function Quiz() 
 {
+
     // State to start quiz
     const [isQuizStarted, setIsQuizStarted] = useState(false);
 
@@ -17,14 +18,31 @@ function Quiz()
     // State for user score
     const [score, setScore] = useState(0);
 
+    // State to track answer only first click answer
+    const [isAnswered, setIsAnswered] = useState(false);
+
     // Handle Chosen Option
-    function handleChosenOption(option)
+    function handleChosenOption(option, e)
     {
+        // Remove the focus after the click
+        e.target.blur();
+
+        // Prevent multiple clicks for the same question
+        if(isAnswered) 
+        {
+            return;
+        }
+
+        // Set chosen option
         setChosenOptions(option);
-        if(option === questions[currentIndex].correct_answer)
+
+        setIsAnswered(true); // Mark the question as answered
+        
+        // If the chosen option is correct
+        if(option === questions[currentIndex].correct_answer) 
         {
             setScore(score + 1);
-        }
+        }        
     }
 
     // Handle Next Question
@@ -32,6 +50,15 @@ function Quiz()
     {
         setCurrentIndex(currentIndex + 1);
         setChosenOptions(null);
+        setIsAnswered(false); // Reset answered state for the next question
+    }
+
+    // Reset Quiz
+    function handleResetQuiz()
+    {
+        setIsQuizStarted(false);
+        setCurrentIndex(0);
+        setScore(0);
     }
 
     return (
@@ -53,34 +80,38 @@ function Quiz()
                             {/* Question Title */}
                             <h2> { questions[currentIndex].title } </h2>
                             <div>
-                                <ul>
-                                {
-                                    questions[currentIndex].options.map((option, index) => {
-                                        const class_for_options = option === chosenOptions ? 'quiz-options bg-warning' : 'quiz-options'
-
-                                        return(  
-                                            <li key={index} className={class_for_options}
-                                            onClick={ () => handleChosenOption(option) }> 
-                                                { option } 
-                                            </li>                    
-                                        );
-                                    })
-                                } 
-                                </ul>
+                            {
+                                questions[currentIndex].options.map((option, index) => {
+                                    const bgClass = option === chosenOptions ? 
+                                    chosenOptions === questions[currentIndex].correct_answer ? 
+                                    "correct-answer" : "incorrect-answer" 
+                                    : ""
+                                    return(
+                                        <input type="text" className={`form-control mb-2 text-center ${bgClass}`}  
+                                        value={ option } key={ index } onClick={ (e) => handleChosenOption(option, e) } readOnly />
+                                    );
+                                })
+                            }
                             </div>
 
                             {/* Next Button */}
-                            <div className='d-grid'>
-                                <button type="button" className='btn btn-outline-success mt-5' 
+                            <div className='d-grid mb-2'>
+                                <button type="button" className='btn btn-outline-primary mt-1' 
                                 onClick={ () => handleNextQuestion() }
                                 disabled={ chosenOptions === null }> Next </button>
                             </div>
 
+                            {/* Index Tracking */}
+                            <div>
+                                <h5 className='text-center text-secondary fw-bold'> 
+                                    {  currentIndex + 1 }/{ questions.length } 
+                                </h5>
+                            </div>
                         </div>
                     </div>
                     :
                     // Display Score
-                    <Result score={score} questions={questions} />
+                    <Result score={ score } questions={ questions } handleResetQuiz={ handleResetQuiz } />
                 :
                 // Display Start Quiz Button
                 <div className="row">
