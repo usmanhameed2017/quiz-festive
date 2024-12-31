@@ -17,9 +17,9 @@ function Result({ score, questions, handleResetQuiz })
                     {
                         questions.map((element, index) => {
                             return(
-                                <div className=''>
-                                    <h6 className='text-start' key={index}> {`${index + 1})`} {element.correct_answer} </h6>
-                                </div>
+                                <h6 className='text-start' key={index}> 
+                                    {`${index + 1})`} {element.correct_answer} 
+                                </h6>
                             );
                         })
                     }
