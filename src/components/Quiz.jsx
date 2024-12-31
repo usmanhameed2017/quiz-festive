@@ -21,11 +21,17 @@ function Quiz()
     function handleChosenOption(option)
     {
         setChosenOptions(option);
-
         if(option === questions[currentIndex].correct_answer)
         {
             setScore(score + 1);
         }
+    }
+
+    // Handle Next Question
+    function handleNextQuestion()
+    {
+        setCurrentIndex(currentIndex + 1);
+        setChosenOptions(null);
     }
 
     return (
@@ -66,7 +72,7 @@ function Quiz()
                             {/* Next Button */}
                             <div className='d-grid'>
                                 <button type="button" className='btn btn-outline-success mt-5' 
-                                onClick={ () => setCurrentIndex(currentIndex + 1)}
+                                onClick={ () => handleNextQuestion() }
                                 disabled={ chosenOptions === null }> Next </button>
                             </div>
 
