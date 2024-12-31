@@ -5,7 +5,6 @@ import Result from './Result.jsx';
 
 function Quiz() 
 {
-
     // State to start quiz
     const [isQuizStarted, setIsQuizStarted] = useState(false);
 
@@ -62,7 +61,6 @@ function Quiz()
     }
 
     return (
-        
         <>  
             {/* Main Heading */}
             <h1 className='bg-dark py-5 text-white text-center fw-bold'> QUIZ APP </h1>
