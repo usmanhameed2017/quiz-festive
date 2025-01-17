@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { questions } from './Questions.js';
-import './Quiz.css';
 import Result from './Result.jsx';
 
 function Quiz() 
@@ -63,7 +62,7 @@ function Quiz()
     return (
         <>  
             {/* Main Heading */}
-            <h1 className='bg-dark py-5 text-white text-center fw-bold'> QUIZ APP </h1>
+            <h1 className='heading py-5 text-white text-center fw-bold'> QUIZ APP </h1>
 
             <div className="container-fluid">
             {
@@ -72,8 +71,8 @@ function Quiz()
                     currentIndex < questions.length ? 
 
                     // Display Quiz
-                    <div className="row quiz-container">
-                        <div className="col-md-4 mx-auto">
+                    <div className="row">
+                        <div className="col-md-5 mx-auto quiz-container shadow">
 
                             {/* Question Title */}
                             <h2> { questions[currentIndex].title } </h2>
@@ -98,6 +97,8 @@ function Quiz()
                                 onClick={ () => handleNextQuestion() }
                                 disabled={ chosenOptions === null }> Next </button>
                             </div>
+
+                            <hr /> {/* Line separator */}
 
                             {/* Index Tracking */}
                             <div>
