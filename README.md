@@ -48,4 +48,4 @@ This is a personal project intended for learning and fun. Contributions and sugg
 ---
 
 ## 📧 Contact
-Feel free to connect on [LinkedIn](https://www.linkedin.com/in/usman-hameed-05b513240) or [Email](usmanhameed1790@gmail.com)
+Feel free to connect on [LinkedIn](https://www.linkedin.com/in/usman-hameed-05b513240)
