@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { questions } from './Questions.js';
+import React, { useCallback, useState } from 'react';
+import { programming_questions, science_questions, sports_questions, 
+diet_questions, geography_questions, psychology_questions  } from '../questions';
 import Result from './Result.jsx';
+import { quizTopics } from '../topics.js';
 
 function Quiz() 
 {
-    // State to start quiz
-    const [isQuizStarted, setIsQuizStarted] = useState(false);
+    // Question
+    const [questions, setQuestions] = useState(null);
 
     // State for current question index
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -19,17 +21,28 @@ function Quiz()
     // State to track answer only first click answer
     const [isAnswered, setIsAnswered] = useState(false);
 
+    // State for heading
+    const [heading, setHeading] = useState("QUIZ FESTIVE");
+
+    // Start quiz
+    const startQuiz = useCallback((title) => {
+        if(title === "Programming") setQuestions(programming_questions);
+        if(title === "Sports") setQuestions(sports_questions);
+        if(title === "Science") setQuestions(science_questions);
+        if(title === "Geography") setQuestions(geography_questions);
+        if(title === "Human Behavior and Psychology") setQuestions(psychology_questions);
+        if(title === "Diet and Health") setQuestions(diet_questions);
+
+        setHeading(title);
+    },[]);
+
     // Handle Chosen Option
-    function handleChosenOption(option, e)
-    {
+    const handleChosenOption = (option, e) => {
         // Remove the focus after the click
         e.target.blur();
 
         // Prevent multiple clicks for the same question
-        if(isAnswered) 
-        {
-            return;
-        }
+        if(isAnswered) return;
 
         // Set chosen option
         setChosenOptions(option);
@@ -37,48 +50,44 @@ function Quiz()
         setIsAnswered(true); // Mark the question as answered
         
         // If the chosen option is correct
-        if(option === questions[currentIndex].correct_answer) 
-        {
-            setScore(score + 1);
-        }        
+        if(option === questions[currentIndex].correct_answer) setScore(score + 1);
     }
 
     // Handle Next Question
-    function handleNextQuestion()
-    {
+    const handleNextQuestion = () => {
         setCurrentIndex(currentIndex + 1);
         setChosenOptions(null);
         setIsAnswered(false); // Reset answered state for the next question
     }
 
     // Reset Quiz
-    function handleResetQuiz()
-    {
-        setIsQuizStarted(false);
+    const handleResetQuiz = useCallback(() => {
+        setQuestions(null);
         setCurrentIndex(0);
         setScore(0);
-    }
+        setHeading("QUIZ FESTIVE");
+    },[]);
 
     return (
         <>  
             {/* Main Heading */}
-            <h1 className='heading py-5 text-white text-center fw-bold'> QUIZ APP </h1>
+            <h1 className='heading py-5 text-white text-center fw-bold'> { heading } </h1>
 
             <div className="container-fluid">
             {
-                isQuizStarted ? 
+                questions ? 
 
-                    currentIndex < questions.length ? 
+                    currentIndex < questions?.length ? 
 
                     // Display Quiz
                     <div className="row">
                         <div className="col-md-5 mx-auto quiz-container shadow">
 
                             {/* Question Title */}
-                            <h2> { questions[currentIndex].title } </h2>
+                            <h2> { questions?.[currentIndex]?.title } </h2>
                             <div>
                             {
-                                questions[currentIndex].options.map((option, index) => {
+                                questions?.[currentIndex]?.options?.map((option, index) => {
                                     const bgClass = option === chosenOptions ? 
                                     chosenOptions === questions[currentIndex].correct_answer ? 
                                     "correct-answer" : "incorrect-answer" 
@@ -112,12 +121,22 @@ function Quiz()
                     // Display Score
                     <Result score={ score } questions={ questions } handleResetQuiz={ handleResetQuiz } />
                 :
-                // Display Start Quiz Button
-                <div className="row">
-                    <div className="col-md-12">
-                        <button type="button" className='btn btn-outline-primary float-end'
-                        onClick={ () => setIsQuizStarted(true) }> Start Quiz </button>
-                    </div>
+                // Display Quiz Topics
+                <div className="row mb-4">
+                    
+                    {
+                        quizTopics.map((topic, index) => (
+                            <div className="col-md-5 mx-auto m-2 card-container shadow" key={index}>
+                                <h4> { topic.title } </h4>
+                                <h6> { topic.description } </h6>
+                                <div>
+                                    <button type='button' className='btn btn-outline-primary mt-1'
+                                    onClick={ () => startQuiz(topic.title) }> Start Quiz </button>
+                                </div>
+                            </div>
+                        ))
+                    }
+                    
                 </div>
             }
             </div>

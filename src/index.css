@@ -12,14 +12,21 @@ body {
 }
 
 .quiz-container {
-  background: linear-gradient(to bottom right, #141E30, #243B55);;
+  background: linear-gradient(to bottom right, #141E30, #243B55);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   padding: 30px;
   border-radius: 20px; 
 }
 
+.card-container{
+  background: linear-gradient(to bottom right, #141E30, #243B55);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 20px; 
+}
+
 .form-control{
-  border: 2px #2d62ac solid;
+  border: none;
   border-radius: 15px;
 }
 
