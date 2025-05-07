@@ -4,6 +4,13 @@
 
 ---
 
+## 🎨 Tech Stack
+- HTML5
+- CSS3
+- React JS
+
+---
+
 ## 🧠 Features
 
 - 🏆 Multiple topics to choose from
@@ -32,3 +39,13 @@ Dive into the human mind with engaging questions on behavior, emotions, learning
 
 ### 🥗 Diet and Health
 Learn about healthy eating, nutrition, vitamins, fitness habits, and wellness concepts.
+
+---
+
+## 📌 Note
+This is a personal project intended for learning and fun. Contributions and suggestions are welcome!
+
+---
+
+## 📧 Contact
+Feel free to connect on [LinkedIn](https://www.linkedin.com/in/usman-hameed-05b513240) or [Email](usmanhameed1790@gmail.com)
